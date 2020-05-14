@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License            #
 # along with elyscaper_game.  If not, see <https://www.gnu.org/licenses/>.     #
 ################################################################################
-"""This file is used to create methods that will be interesting for the introduction
+"""This file is used to create methods that will be interesting for the introduction of the game
 """
 
 import sys
@@ -38,7 +38,7 @@ writer = usual.Writer()
 #                                               Class                                              #
 # ------------------------------------------------------------------------------------------------ #
 
-class display_intro:
+class Display_intro:
     """Many methods that will be interesting for the introduction
     """
     def __init__(self):

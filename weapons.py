@@ -22,9 +22,9 @@
 
 import random
 
-list_weapons = [] # a list that will be filled with all weapons
+list_weapons = [] # a list that will be filled with all Weapons
 
-class weapon: 
+class Weapon: 
     
     def __init__(self,name,desc,classe,command,usure=0): 
         
@@ -77,36 +77,36 @@ class weapon:
                     
 
 
-cimeterre = weapon("Cimeterre de feu","une cimeterre dont la lame semble être un brasero","fire","cim")
-dague = weapon("Dague des ténèbres","une dague qui dégage un aura de terreur noire","dakr","dag")
-nunchaku = weapon("Nunchaku en argent","un nunchaku en argent qui pourrait repousser certains ennemis","silver","nun")
-rapiere = weapon("Rapière de lumière","une rapière qui brille d'une lueur d'espoir","light","rap")
-siangham = weapon("Siangham aquatique","un siangham qui semble être lié à l'élement aquatique","water","sia")
-lance = weapon("Lance électrique","une lance qui semble projeter de la foudre","elec","lan")
-bolas = weapon("Bolas de pierre","un bolas en pierre qui peut être facilement projeté","stone","bol")
-corseque = weapon("Corsèque fleurie","une corsèque liée fondamentalement à la nature","tree","cor")
-fleau = weapon("Fléau d'armes de glace","un fléau d'armes glacé","ice","fle")
-masse = weapon("Masse en acier","une masse en acier très imposante","steel","mas")
-fouet = weapon("Fouet","un fouet, comme celui d'Indiana Jones","normal","fou")
-gourdin = weapon("Gourdin enflammé","un gourdin qui capable de brûler en plus d'assomer","fire","gou")
-faux = weapon("Faux de guerre ténébreuse","une faux de guerre qui a été utilisée pour de sombres executions","dalr","fau")
-hache = weapon("Hache en argent","une hache d'argent qui ne semble pas plaire à tout le monde","silver","hac")
-flamberge = weapon("Flamberge océanique","une flamberge conçue vingt mille lieues sous les mers","water","fla")
-khepesh = weapon("Khépesh de roc","un khépesh taillé dans la pierre antique","stone","khe")
-sabre = weapon("Sabre maléfique","un sabre maléfique, à l'allure effrayante","dark","sab")
-marteau = weapon("Marteau d'eau","un marteau constitué magiquement d'eau","water","mar")
-sai = weapon("Saï du soleil","un saï solaire, qui éblouit l'énnemi","light","sai")
-serpe = weapon("Serpe luminescente","une serpe qui illumine la vie","light","ser")
-glaive = weapon("Glaive de la forêt","un glaive qui a rattaché à la forêt","tree","gla")
-bardiche = weapon("Bardiche en pierre","une bardiche en pierre qui est très imposante","stone","bar")
-scramasaxe = weapon("Scramasaxe rocailleux","un scramasaxe rocailleux, pour tout trancher","stone","scr")
-claymore = weapon("Claymore en silex","une claymore lourde, fabriquée en silex","stone","cla")
-lame = weapon("Lame de rocher","une lame qui a été longtemps plantée dans un rocher, et s'est calcifiée","stone","lam")
+cimeterre = Weapon("Cimeterre de feu","une cimeterre dont la lame semble être un brasero","fire","cim")
+dague = Weapon("Dague des ténèbres","une dague qui dégage un aura de terreur noire","dakr","dag")
+nunchaku = Weapon("Nunchaku en argent","un nunchaku en argent qui pourrait repousser certains ennemis","silver","nun")
+rapiere = Weapon("Rapière de lumière","une rapière qui brille d'une lueur d'espoir","light","rap")
+siangham = Weapon("Siangham aquatique","un siangham qui semble être lié à l'élement aquatique","water","sia")
+lance = Weapon("Lance électrique","une lance qui semble projeter de la foudre","elec","lan")
+bolas = Weapon("Bolas de pierre","un bolas en pierre qui peut être facilement projeté","stone","bol")
+corseque = Weapon("Corsèque fleurie","une corsèque liée fondamentalement à la nature","tree","cor")
+fleau = Weapon("Fléau d'armes de glace","un fléau d'armes glacé","ice","fle")
+masse = Weapon("Masse en acier","une masse en acier très imposante","steel","mas")
+fouet = Weapon("Fouet","un fouet, comme celui d'Indiana Jones","normal","fou")
+gourdin = Weapon("Gourdin enflammé","un gourdin qui capable de brûler en plus d'assomer","fire","gou")
+faux = Weapon("Faux de guerre ténébreuse","une faux de guerre qui a été utilisée pour de sombres executions","dalr","fau")
+hache = Weapon("Hache en argent","une hache d'argent qui ne semble pas plaire à tout le monde","silver","hac")
+flamberge = Weapon("Flamberge océanique","une flamberge conçue vingt mille lieues sous les mers","water","fla")
+khepesh = Weapon("Khépesh de roc","un khépesh taillé dans la pierre antique","stone","khe")
+sabre = Weapon("Sabre maléfique","un sabre maléfique, à l'allure effrayante","dark","sab")
+marteau = Weapon("Marteau d'eau","un marteau constitué magiquement d'eau","water","mar")
+sai = Weapon("Saï du soleil","un saï solaire, qui éblouit l'énnemi","light","sai")
+serpe = Weapon("Serpe luminescente","une serpe qui illumine la vie","light","ser")
+glaive = Weapon("Glaive de la forêt","un glaive qui a rattaché à la forêt","tree","gla")
+bardiche = Weapon("Bardiche en pierre","une bardiche en pierre qui est très imposante","stone","bar")
+scramasaxe = Weapon("Scramasaxe rocailleux","un scramasaxe rocailleux, pour tout trancher","stone","scr")
+claymore = Weapon("Claymore en silex","une claymore lourde, fabriquée en silex","stone","cla")
+lame = Weapon("Lame de rocher","une lame qui a été longtemps plantée dans un rocher, et s'est calcifiée","stone","lam")
 
 list_weapons = [globals()[i] for i in dir() if i not in ('__annotations__', '__builtins__', 
                                                          '__cached__', '__doc__', '__file__', 
                                                          '__loader__', '__name__', '__package__', 
-                                                         '__spec__','inv','list_weapons','random',
-                                                         'weapon')]
+                                                         '__spec__','inv','list_Weapons','random',
+                                                         'Weapon')]
 # a list filled with all weapons --> we don't have type all weapons one by one!
 

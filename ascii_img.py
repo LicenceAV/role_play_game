@@ -122,19 +122,4 @@ class AsciiConverter:
             # to center the AsciiArt in the screen
         print(self.new)
 
-
-
-# ------------------------------------------- __main__ ------------------------------------------- #
-
-if __name__ == '__main__':  
-    writer=usual.Writer()
-    writer.clear()
-    exemple=min(writer.l-10,writer.c-10)     
-    ascii=AsciiConverter(exemple,exemple)
-    ascii.to_ascii_color("eau.jpg")
-    writer.text("Vous vous réveillez dans un microcosme aquatique...")
-    writer.end(13)
-    #print(writer.l,writer.c)
-    #ascii=AsciiConverter(30,30)
-    #ascii.to_ascii_color("game_over.jpg")
     

@@ -19,6 +19,9 @@
 # You should have received a copy of the GNU General Public License            #
 # along with elyscaper_game.  If not, see <https://www.gnu.org/licenses/>.     #
 ################################################################################
+"""This file is made to create worlds and to generate introductions screens of
+those worlds. It also creates lists of worlds and weapons in it.
+"""
 
 import json
 import usual
@@ -121,7 +124,6 @@ class world:
         
         self.already_went+=1        
 
-# In the right order:
 water = world("water")      #0
 stone = world("stone")      #1
 dark = world("dark")        #2
@@ -136,9 +138,3 @@ fire = world("fire")        #10
 
 for i in range(len(list_worlds)):
     list_worlds[i] = globals()[list_worlds[i]] #will be filled with all worlds, in the right order
-    
-
-# ------------------------------------------- __main__ ------------------------------------------- #
-
-if __name__ == "__main__":
-    water.intro_world()

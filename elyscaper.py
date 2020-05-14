@@ -46,13 +46,14 @@ with open('elyscaper_data.json') as json_file: # all long sentences are written 
     
 writer = usual.Writer()
 writer.clear()
-intro = intro_elyscaper.display_intro()
+intro = intro_elyscaper.Display_intro()
 date = notation_date.notation() 
 
-
-FNULL = open(os.devnull, 'w')
+FNULL = open(os.devnull, 'w') # not to see the outputs (stdout and stderr)
 
 def kill_music():
+    """If the variable music exists as a shell command, and if it is running, kill it 
+    """
     try:
         if music.poll() == None:
             music.kill()
@@ -60,6 +61,8 @@ def kill_music():
         pass    
     
 def next_music():
+    """If the variable music exists as a shell command, and if it is not running, launch music
+    """
     try: #it will be only achieved if elyscaper is used as __main__ 
         if globals()["music"].poll() != None: 
             music_number = rd.randint(2,9)
@@ -78,8 +81,12 @@ def next_music():
 inv = [] # the inventary
 
 class Hero:
+    """To generate the hero
+    """
     
     def __init__(self):
+        """Initialisation
+        """
         self.dead = False
         self.know = []
         
@@ -89,10 +96,9 @@ class Hero:
         self.name = input("")
         writer.clear()
 
-    def add_inventory(self,this_weapon): 
-        inv.append(this_weapon)
-
     def level(self):
+        """Select the difficulty of the game
+        """
         writer.text(data["level"])
         writer.jump()
         writer.text("- Rêve lucide ? (1)")
@@ -103,11 +109,8 @@ class Hero:
         writer.jump()
         writer.text("- Terreur nocturne ? (4)")
         writer.end(4.5)
-        
         _ = input("")
-        
         writer.clear()
-
         if _ == "1":
             self.conditions(100,100,100,100,120,10,data["level_choice"][0])
         elif _ == "2":
@@ -120,6 +123,17 @@ class Hero:
             self.level()
                     
     def conditions(self,power,dext,speed,stamina,life,joker,msg):
+        """Creates important varibales related to hero
+
+        Arguments:
+            power {int} -- the power of hero
+            dext {int} -- the dexterity of the hero (ability not to mess up his strikes)
+            speed {int} -- the speed of the hero (to be the first to strike)
+            stamina {int} -- the stamina of the hero (to be able to take the hit)
+            life {int} -- the life bar of the hero
+            joker {int} -- the number of time the hero can flee
+            msg {str} -- the message to show depending on the difficulty
+        """
         self.power = power
         self.dext = dext
         self.speed = speed
@@ -134,12 +148,29 @@ class Hero:
 #                                             Fighting                                             #
 # ------------------------------------------------------------------------------------------------ #
 class Battle:
+    """A class designed fo duels bitween hero and foe
+    """
 
     def __init__(self,hero,foe):
+        """Initialisation
+
+        Arguments:
+            hero {Hero obj} -- the hero 
+            foe {characters.Ennemy obj} -- the foe
+        """
         self.hero = hero
         self.foe = foe
         
     def green_red(self,hero_skill,foe_skill):
+        """Print things in red or green depending on the highest values
+
+        Arguments:
+            hero_skill {int} -- the skill of the hero
+            foe_skill {int} -- the skill of the foe
+
+        Returns:
+            str*2 -- the colored strings of the skills
+        """
         if hero_skill < foe_skill:
             str_hero = usual.RED+str(hero_skill)
             str_foe = usual.GREEN+str(foe_skill)
@@ -151,7 +182,9 @@ class Battle:
             str_hero = usual.YELLOW+str(hero_skill)
         return str_hero,str_foe
     
-    def stats(self):    
+    def stats(self):
+        """Generates a table representing the stats of hero and foe 
+        """    
         str_hero,str_foe = self.green_red(self.hero.life,self.foe.life)             
         content = [[self.hero.name,self.foe.name],
                    ["Vie = {}".format(str_hero),
@@ -175,6 +208,9 @@ class Battle:
         writer.table(content)
         
     def a_battle(self):
+        """Show the message of the sight of a creature. 
+        Say what to do if you decide to attack or flee.
+        """
         writer.clear()
         writer.text(data["see_ennemy"].format(self.foe.desc))       
         self.stats()
@@ -192,6 +228,11 @@ class Battle:
             self.hero.joker -= 1
             
     def choice_battle(self):
+        """Decide to attack or to flee
+
+        Returns:
+            str -- retrun the decision, "attack" or "flee".
+        """
         writer.clear()
         if self.hero.joker != 0:        
             writer.text("Vous pouvez choisir de l'attaquer (A), comme de fuir (F).")
@@ -208,6 +249,9 @@ class Battle:
             return "attack"
                    
     def round(self):
+        """Decide who will move the first (depending on the speed of the hero and the foe).
+        It does it until death of foe or hero.
+        """
         while True:
             if self.foe.dead == True or self.hero.dead == True:
                 break    
@@ -229,6 +273,13 @@ class Battle:
                 break 
         
     def fight(self,attack,defense):
+        """Calculate the strength of the strike, if the strike is not messed up. It depends on 
+        the dexterity (.dext), the power (.power) the endurance (.stamina), the weapon and the luck.
+
+        Arguments:
+            attack {Hero or characters.Ennemy obj} -- the one that attack
+            defense {Heor or characters.Ennemy obj} -- the one that defend
+        """
                     
         writer.clear()
         success = rd.randint(1,attack.dext)
@@ -274,6 +325,7 @@ def visit_world(hero,w_number):
     Note: Must have initialised this variable before using: start_chrono = time.time()
 
     Arguments:
+        hero {Hero obj} -- the hero
         w_number {int} -- the number of the world (see world.py's module)
     """    
     
@@ -297,6 +349,12 @@ def visit_world(hero,w_number):
         
         
 def breakable_core(hero,w_number):
+    """A loop for all ennemies in a world that breaks (return) if the hero die
+
+    Arguments:
+        hero {Hero obj} -- the hero
+        w_number {int} -- the number of the world (see world.py)
+    """
     world.list_worlds[w_number].intro_world() #launch the intro of the world
     writer.usr_input()
             
@@ -321,6 +379,7 @@ def switch_world(hero,w_number): # when you survive in a world
     Note: made to be used in a visit_world() function.    
 
     Arguments:
+        hero {Hero obj} -- the hero
         w_number {int} -- the number of the world (see world.py's module)
     """
     foes_ameliorations()
@@ -623,7 +682,7 @@ if __name__ == "__main__":
     hero.level()
 
 # --------------------------------------- Generate a matrix -------------------------------------- #
-    """
+    
     writer.clear()
     writer.size_condition()
     writer.text("Paramétrage du système en cours")
@@ -649,7 +708,7 @@ if __name__ == "__main__":
     writer.para_input(data["intro"][0])
     writer.para_input(data["intro"][1])
     writer.para_input(data["intro"][2])
-    writer.para_input(data["intro"][3])"""
+    writer.para_input(data["intro"][3])
     
 # ----------------------------------------- Phase of play ---------------------------------------- #
 
