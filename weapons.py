@@ -106,7 +106,7 @@ lame = Weapon("Lame de rocher","une lame qui a été longtemps plantée dans un 
 list_weapons = [globals()[i] for i in dir() if i not in ('__annotations__', '__builtins__', 
                                                          '__cached__', '__doc__', '__file__', 
                                                          '__loader__', '__name__', '__package__', 
-                                                         '__spec__','inv','list_Weapons','random',
+                                                         '__spec__','inv','list_weapons','random',
                                                          'Weapon')]
 # a list filled with all weapons --> we don't have type all weapons one by one!
 
