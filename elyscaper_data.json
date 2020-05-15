@@ -14,6 +14,14 @@
         "Vous entendez à ce moment présent comme une déchirure, et vous avez comme l'impression de perdre petit à petit connaissance."
     ],
     "intro_warning": "Ce mini-jeu a été conçu avant tout pour un terminal sombre, et avec la barre de défilement désactivée. Il vous est conseillé de régler votre terminal comme ceci afin de profiter pleinement du jeu ! Il faut aussi que votre terminal support l'affichage Unicode. Vous pouvez à titre d'exemple regarder le screenshot fourni avec le jeu ! Et surtout, montez le son !",
+    "just_amelioration": [
+        "Vous pouvez {} améliorer une de ces capacités, ou votre vie. Pour cela, appuyez sur (A).",
+        "Voici les touches à appuyer en fonction de l'améioration que vous souhaitez : puissance (P), agilité (A), vitesse (V), endurance (E), vie (L)."
+    ],
+    "know": [
+        "Vous pouvez améliorer la connaissance de vos capacités ainsi que de celles de vos ennemis (puissance, agilité, vitesse, endurance), afin de mieux prévoir quand il faut fuir. Pour cela, appuyez sur (C).",
+        "Voici les touches à appuyer en fonction de la capacité que vous voulez connaître : puissance (P), agilité (A), vitesse (V), endurance (E)."
+    ],
     "level": "Merci de choisir la difficulté, les types de jeu étant classés du plus simple au plus dur. Cela affectera vos chances de réussir à placer des coups, cela vous octroiera (ou non) la possibilité de fuir des ennemis, et cela déterminera vos statistiques initiales de vitesse, de resistance aux coups, de vie, et de force.",
     "level_choice": [
         "Bon, et bien vous avez interêt à réussir !",
@@ -22,18 +30,10 @@
         "Oh ! Vous avez interêt à être un hardcore gamer, sinon ça va être humiliant ! Bon courage..."
     ],
     "replace_weapon": "Vous avez enlevé une arme de votre inventaire, et vous l'avez remplacée par celle que vous venez de trouver !",
+    "rules": "Ce jeu est un mini-jeu ayant pour but une exploration de diverses mondes relatifs à des rêves plus ou moins profonds. Vous allez apparaître dans un rêve intermédiaire et le but sera de remonter à la sortie en traversant plusieurs rêves. Descendre plus profondément est une étape inéluctable, mais attention à ne pas tomber trop bas !",
     "see_ennemy": "Vous rencontrez un ennemi. Cet ennemi est {}. Voici vos statistiques et les siennes :",
     "throw_weapon": "Si vous souhaitez vous débarassez d'une arme et la laisser dans ce monde pour (peut-être !) la retrouver en revenant un autre fois, appuyez sur (D). (Sinon, passez)",
     "to_many_weapons": "Vous avez 10 armes dans votre inventaire ! Vous allez être obligé de vous délaisser d'une arme si vous souhaitez prendre celle-ci !",
     "world_fire_intro": "Vous vous réveillez {}dans le microcosme le plus profond : celui du feu... Ensuite se trouve le Pandémonium dont les grilles sont gardées par un cérbère.{} Vous devriez donc faire attention à ne pas perdre toute votre vie...",
-    "write_letters": "Quand il vous est demandé de rentrer une ou des lettres, tappez-les et appuyez sur (↵) !",
-    "know": [
-        "Vous pouvez améliorer la connaissance de vos capacités ainsi que de celles de vos ennemis (puissance, agilité, vitesse, endurance), afin de mieux prévoir quand il faut fuir. Pour cela, appuyez sur (C).",
-        "Voici les touches à appuyer en fonction de la capacité que vous voulez connaître : puissance (P), agilité (A), vitesse (V), endurance (E)."
-    ],
-    "just_amelioration": [
-        "Vous pouvez {} améliorer une de ces capacités, ou votre vie. Pour cela, appuyez sur (A).",
-        "Voici les touches à appuyer en fonction de l'améioration que vous souhaitez : puissance (P), agilité (A), vitesse (V), endurance (E), vie (L)."
-    ],
-    "rules": "Ce jeu est un mini-jeu ayant pour but une exploration de diverses mondes relatifs à des rêves plus ou moins profonds. Vous allez apparaître dans un rêve intermédiaire et le but sera de remonter à la sortie en traversant plusieurs rêves. Descendre plus profondément est une étape inéluctable, mais attention à ne pas tomber trop bas !"
+    "write_letters": "Quand il vous est demandé de rentrer une ou des lettres, tappez-les et appuyez sur (↵) !"
 }

@@ -1,6 +1,6 @@
 # role_play_game
 
-*My game's main file is elyscaper.py*
+*A little role play game in **french**. Its main file is elyscaper.py*
 
 **OS compatibility**
 

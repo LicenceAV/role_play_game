@@ -31,7 +31,10 @@ import sys
 import json
 import random as rd
 import subprocess
+from functools import wraps
+
 import numpy as np
+
 import usual
 import intro_elyscaper
 import notation_date
@@ -273,21 +276,19 @@ class Battle:
                 break 
         
     def fight(self,attack,defense):
-        """Calculate the strength of the strike, if the strike is not messed up. It depends on 
-        the dexterity (.dext), the power (.power) the endurance (.stamina), the weapon and the luck.
+        """If the strike is not messed up, less the defense life.
 
         Arguments:
             attack {Hero or characters.Ennemy obj} -- the one that attack
             defense {Heor or characters.Ennemy obj} -- the one that defend
-        """
-                    
+        """    
         writer.clear()
         success = rd.randint(1,attack.dext)
         if success <= 5:
             writer.para_input("{} attaque mais le coup est râté !".format(attack.name))
             pass
         else:
-            strike = self.a_strilke(attack,defense)
+            strike = self.a_strike(attack,defense)
             defense.life -= strike
             writer.text("{} attaque de {} points".format(attack.name,strike))
             self.stats()
@@ -304,7 +305,17 @@ class Battle:
                     writer.clear()
                     writer.para_time("L'ennemi vous a affaibli !")            
 
-    def a_strilke(self,attack,defense):
+
+    def a_strike(self,attack,defense):
+        """Calcule the strenght of the strike
+
+        Arguments:
+            attack {Hero or characters.Ennemy obj} -- the one that attack
+            defense {Heor or characters.Ennemy obj} -- the one that defend
+
+        Returns:
+            int -- the strenght of the strike
+        """
         strike = rd.randint(int(round(attack.power/2)),attack.power)
         if attack == self.hero and self.weapon != False:
             if self.weapon.most == defense.world:
@@ -374,7 +385,7 @@ def breakable_core(hero,w_number):
         foes[i].life = foes[i].full_life 
         if hero.dead == True:
             return       
-        apparition(appear,foes,w_number,i,order_of_apparition)
+        apparition(w_number,i,order_of_apparition)
         
         
 def switch_world(hero,w_number): # when you survive in a world
@@ -416,6 +427,8 @@ def switch_world(hero,w_number): # when you survive in a world
             switch_world(hero,w_number)
 
 def foes_ameliorations():
+    """Make the foes stronger
+    """
     plus = 3
     for i in range(len(world.list_worlds)):
         for j in range(len(world.list_worlds[i].characters_in_world)):
@@ -429,6 +442,11 @@ def foes_ameliorations():
 
 
 def hero_ameliorations(hero):
+    """Create a menu to launch ameliorations for the hero
+
+    Arguments:
+        hero {Hero obj} -- the hero
+    """
     if len(hero.know)<5:
         writer.clear()
         writer.text(data["know"][0])
@@ -448,6 +466,11 @@ def hero_ameliorations(hero):
         just_amelioration(hero)
 
 def know_amelioration(hero):
+    """Choose which amelioration of the knowing of the stats to choose
+
+    Arguments:
+        hero {Hero obj} -- the hero
+    """
     writer.clear()
     writer.text(data["know"][1])
     writer.end()
@@ -464,6 +487,11 @@ def know_amelioration(hero):
         know_amelioration(hero)
     
 def just_amelioration(hero):
+    """Choose which amelioration to choose
+
+    Arguments:
+        hero {Hero obj} -- the hero
+    """
     writer.clear()
     writer.text(data["just_amelioration"][1])
     writer.end()   
@@ -516,28 +544,26 @@ def bad_end():
 #                                         Usage of weapons                                         #
 # ------------------------------------------------------------------------------------------------ #
             
-def apparition(appear,foes,w_number,number_of_this_foe,order_of_apparition):
+def apparition(w_number,number_of_this_foe,order_of_apparition):
+    """Add a menu when you find a weapon
+
+    Arguments:
+        w_number {int} -- the number of the world
+        number_of_this_foe {int} the number of the foe in this world
+        order_of_apparition {list} -- A list a bool that define if you find a weapon or not
+    """
     if order_of_apparition[number_of_this_foe] == True:
         this_weapon = rd.choice(world.list_worlds[w_number].weapons_in_world)
         writer.clear()
         writer.para_input("Vous trouvez une arme au sol !")
         writer.para_input("Cette arme est {} !".format(this_weapon.desc))
-        writer.text(data["add_weapon"])
-        if this_weapon.deja == True:
-            writer.jump()
-            writer.text("Vous l'aviez déjà vu dans ce monde !")
-        else:
-            this_weapon.deja == True
-        writer.end()
-        
+        text_weapon(this_weapon)
         _ = input("")
-        
         if _ == "A":
             if len(inv) <= 10:
                 writer.clear()
                 writer.para_input("Vous avez choisi de prendre l'arme !")
-                inv.append(this_weapon)
-                world.list_worlds[w_number].weapons_in_world.remove(this_weapon)
+                inventary_management(this_weapon,w_number)
             else:
                 writer.clear()
                 writer.text(data["too_many_weapons"])
@@ -548,23 +574,58 @@ def apparition(appear,foes,w_number,number_of_this_foe,order_of_apparition):
                 writer.clear
                 if _ == "D":
                     choose_weapon_remove(w_number)
-                    inv.append(this_weapon)
-                    world.list_worlds[w_number].weapons_in_world.remove(this_weapon)
+                    inventary_management(this_weapon,w_number)
                     writer.para_input(data["replace_weapon"])
                 else:
                     writer.clear()
-                    writer.para_input("Vous avez choisi de ne pas prendre l'arme...")
-                
+                    writer.para_input("Vous avez choisi de ne pas prendre l'arme...")   
         else:
             writer.clear()
             writer.para_input("Vous avez choisi de ne pas prendre l'arme...")
+            
+def text_weapon(this_weapon):
+    """Add text to a menu for discovering a weapon
+
+    Arguments:
+        this_weapon {weapons.Weapon obj} -- See the function "apparition()": a random weapon 
+        inside this world
+    """
+    writer.text(data["add_weapon"])
+    if this_weapon.deja == True:
+        writer.jump()
+        writer.text("Vous l'aviez déjà vu dans ce monde !")
+    else:
+        this_weapon.deja == True
+    writer.end()
+
+def inventary_management(this_weapon,w_number):
+    """Manage the inventary and the list of weapons in a world when adding a weapon
+
+    Arguments:
+        this_weapon {weapons.Weapon obj} -- See the function "apparition()": a random weapon 
+        inside this world
+        w_number {int} -- the number of the world
+    """
+    inv.append(this_weapon)
+    world.list_worlds[w_number].weapons_in_world.remove(this_weapon)
 
 def show_inv():
+    """Show the inventary
+    """
     for i in range(len(inv)):
         writer.text("{} ({})".format(inv[i].name,inv[i].command))
 
-def creator_choose_weapon(msg): 
+def creator_choose_weapon(msg):
+    """A creator for a decorator. Not the easiest way to wrap function (I could have just 
+    created a function to be included in others), but I wanted to practice decorators.
+
+    Used as a decorator, generate the message in argument, and show the inventary
+    
+    Arguments:
+        msg {str} -- The message to add
+    """
     def choose_weapon(func):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             writer.clear()
             writer.text(msg)
@@ -577,6 +638,11 @@ def creator_choose_weapon(msg):
     
 @creator_choose_weapon("Tapez les trois premières lettres de l'arme souahitée")    
 def choose_weapon_remove(w_number):
+    """A function used to remove a weapon from inventary
+
+    Arguments:
+        w_number {int} -- the number of the world
+    """
     _ = input("")
     for i in range(len(inv)):
         if _ == inv[i-1].command:
@@ -585,6 +651,11 @@ def choose_weapon_remove(w_number):
 
 @creator_choose_weapon("Tapez les trois premières lettres de l'arme souahitée, sinon, passez.")
 def choose_weapon_fight():
+    """A function used to choose a weapon in the inventary
+
+    Returns:
+        weapons.Weapon obj or bool -- the weapon or False
+    """
     if len(inv)>0:
         _ = input("")
         for i in range(len(inv)):
@@ -598,12 +669,20 @@ def choose_weapon_fight():
         return False     
     
 def finding_weapons(foes,list_weapons_this_world):
+    """Create a list of bool to define if you'll find a weapon after kiling the foe
+
+    Arguments:
+        foes {list} -- list a the foes in this world
+        list_weapons_this_world {list} -- list of weapons in a world
+
+    Returns:
+        list, int -- the order of appartition of the weapons, and numer of weapons that will appear
+    """
     appear = rd.randint(0,len(foes))
     # randomly select the number of weapons that will be found for this visit of the world 
     if appear > len(list_weapons_this_world): 
         appear = len(list_weapons_this_world) 
         # reajust the number of weapons if there are less weapons that can appear in this world
-    
     order_of_apparition = []
     number_weapons_to_distribute = appear
     number_of_foes_to_distribute = len(foes)
@@ -618,7 +697,7 @@ def finding_weapons(foes,list_weapons_this_world):
                 if this_action == True:
                     number_weapons_to_distribute-=1
         number_of_foes_to_distribute-=1
-
+        
     if len(order_of_apparition) < len(foes):
         for i in range(len(foes)-len(order_of_apparition)):
             order_of_apparition.append(False)   
