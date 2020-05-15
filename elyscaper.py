@@ -121,7 +121,7 @@ class Hero:
         elif _ == "3":
             self.conditions(80,80,80,80,100,4,data["level_choice"][2])
         elif _ == "4":
-            self.conditions(70,70,70,70,90,0,data["level_choice"][3])
+            self.conditions(70,70,70,70,90,100,data["level_choice"][3])
         else:
             self.level()
                     
@@ -447,11 +447,11 @@ def hero_ameliorations(hero):
     Arguments:
         hero {Hero obj} -- the hero
     """
-    if len(hero.know)<5:
+    if len(hero.know)<4:
         writer.clear()
         writer.text(data["know"][0])
         writer.jump()
-        writer.text(data["just_amelioration".format("sinon")][0])
+        writer.text(data["just_amelioration"][0])
         writer.end()
         _ = input("")
         if _ == "C":
@@ -462,7 +462,6 @@ def hero_ameliorations(hero):
             hero_ameliorations(hero)
     else:
         writer.clear()
-        writer.para_input(data["just_amelioration".format("")][0])
         just_amelioration(hero)
 
 def know_amelioration(hero):
@@ -506,7 +505,8 @@ def just_amelioration(hero):
     elif _ == "E":
         hero.stamina += plus
     elif _ == "L":
-        hero.life += plus
+        hero.full_life += plus
+        hero.life = hero.full_life
     else:
         just_amelioration(hero)
         
@@ -535,7 +535,7 @@ def bad_end():
     writer.end()
     writer.usr_input()
     writer.clear()
-    world.microcosme("game_over","",0,"")
+    world.microcosme("game_over",10,"",0,"")
     credits()
     kill_music()
     sys.exit()
@@ -796,7 +796,7 @@ if __name__ == "__main__":
     writer.para_input(data["intro"][1])
     writer.para_input(data["intro"][2])
     writer.para_input(data["intro"][3])
-    
+        
 # ----------------------------------------- Phase of play ---------------------------------------- #
 
     start_chrono = time.time()

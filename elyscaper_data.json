@@ -15,8 +15,8 @@
     ],
     "intro_warning": "Ce mini-jeu a été conçu avant tout pour un terminal sombre, et avec la barre de défilement désactivée. Il vous est conseillé de régler votre terminal comme ceci afin de profiter pleinement du jeu ! Il faut aussi que votre terminal support l'affichage Unicode. Vous pouvez à titre d'exemple regarder le screenshot fourni avec le jeu ! Et surtout, montez le son !",
     "just_amelioration": [
-        "Vous pouvez {} améliorer une de ces capacités, ou votre vie. Pour cela, appuyez sur (A).",
-        "Voici les touches à appuyer en fonction de l'améioration que vous souhaitez : puissance (P), agilité (A), vitesse (V), endurance (E), vie (L)."
+        "Vous pouvez améliorer une de ces capacités, ou votre vie. Pour cela, appuyez sur (A).",
+        "Voici les touches à appuyer en fonction de l'amélioration que vous souhaitez : puissance (P), agilité (A), vitesse (V), endurance (E), vie (L)."
     ],
     "know": [
         "Vous pouvez améliorer la connaissance de vos capacités ainsi que de celles de vos ennemis (puissance, agilité, vitesse, endurance), afin de mieux prévoir quand il faut fuir. Pour cela, appuyez sur (C).",

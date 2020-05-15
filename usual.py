@@ -211,7 +211,3 @@ class Writer:
             print(margin+""*4+"|   {:^38}\033[0m    |    {:^38}\033[0m   |".format(stats[i+1][0],
                                                                                    stats[i+1][1]))
         print(margin+79*"-")
-
-
-
-      
