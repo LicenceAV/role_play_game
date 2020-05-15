@@ -287,17 +287,7 @@ class Battle:
             writer.para_input("{} attaque mais le coup est râté !".format(attack.name))
             pass
         else:
-            strike = rd.randint(int(round(attack.power/2)),attack.power)
-            if attack == self.hero and self.weapon != False:
-                if self.weapon.most == defense.world:
-                    strike += rd.randint(int(round(self.weapon.force/2)),self.weapon.force)*2
-                elif self.weapon.less == defense.world:
-                    strike += rd.randint(int(round(self.weapon.force/2)),self.weapon.force)*0.5
-                else:
-                    strike += rd.randint(int(round(self.weapon.force/2)),self.weapon.force)
-            strike -= rd.randint(int(round(defense.stamina/4)),int(round(defense.stamina/2)))
-            if strike < 0:
-                strike = 0
+            strike = self.a_strilke(attack,defense)
             defense.life -= strike
             writer.text("{} attaque de {} points".format(attack.name,strike))
             self.stats()
@@ -314,7 +304,21 @@ class Battle:
                     writer.clear()
                     writer.para_time("L'ennemi vous a affaibli !")            
 
-
+    def a_strilke(self,attack,defense):
+        strike = rd.randint(int(round(attack.power/2)),attack.power)
+        if attack == self.hero and self.weapon != False:
+            if self.weapon.most == defense.world:
+                strike += rd.randint(int(round(self.weapon.force/2)),self.weapon.force)*2
+            elif self.weapon.less == defense.world:
+                strike += rd.randint(int(round(self.weapon.force/2)),self.weapon.force)*0.5
+            else:
+                strike += rd.randint(int(round(self.weapon.force/2)),self.weapon.force)
+        strike -= rd.randint(int(round(defense.stamina/4)),int(round(defense.stamina/2)))
+        if strike < 0:
+            strike = 0
+        return strike
+    
+    
 # ------------------------------------------------------------------------------------------------ #
 #                                       Traveling the worlds                                       #
 # ------------------------------------------------------------------------------------------------ #
@@ -559,26 +563,30 @@ def show_inv():
     for i in range(len(inv)):
         writer.text("{} ({})".format(inv[i].name,inv[i].command))
 
-def choose_weapon(msg):
-    writer.clear()
-    writer.text(msg)
-    writer.jump()
-    show_inv()
-    writer.end()
-    _ = input("")
-    return _
+def creator_choose_weapon(msg): 
+    def choose_weapon(func):
+        def wrapper(*args, **kwargs):
+            writer.clear()
+            writer.text(msg)
+            writer.jump()
+            show_inv()
+            writer.end()
+            return func(*args, **kwargs)
+        return wrapper
+    return choose_weapon    
     
+@creator_choose_weapon("Tapez les trois premières lettres de l'arme souahitée")    
 def choose_weapon_remove(w_number):
-    if len(inv)>0:
-        _ = choose_weapon("Tapez les trois premières lettres de l'arme souahitée")
-        for i in range(len(inv)):
-            if _ == inv[i-1].command:
-                inv.remove(inv[i])
-                world.list_worlds[w_number].weapons_in_world.append(inv[i])
+    _ = input("")
+    for i in range(len(inv)):
+        if _ == inv[i-1].command:
+            inv.remove(inv[i])
+            world.list_worlds[w_number].weapons_in_world.append(inv[i])
 
+@creator_choose_weapon("Tapez les trois premières lettres de l'arme souahitée, sinon, passez.")
 def choose_weapon_fight():
     if len(inv)>0:
-        _ = choose_weapon("Tapez les trois premières lettres de l'arme souahitée, sinon, passez.")
+        _ = input("")
         for i in range(len(inv)):
             if _ == inv[i-1].command:
                 return inv[i-1]

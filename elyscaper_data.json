@@ -34,5 +34,6 @@
     "just_amelioration": [
         "Vous pouvez {} améliorer une de ces capacités, ou votre vie. Pour cela, appuyez sur (A).",
         "Voici les touches à appuyer en fonction de l'améioration que vous souhaitez : puissance (P), agilité (A), vitesse (V), endurance (E), vie (L)."
-    ]
+    ],
+    "rules": "Ce jeu est un mini-jeu ayant pour but une exploration de diverses mondes relatifs à des rêves plus ou moins profonds. Vous allez apparaître dans un rêve intermédiaire et le but sera de remonter à la sortie en traversant plusieurs rêves. Descendre plus profondément est une étape inéluctable, mais attention à ne pas tomber trop bas !"
 }

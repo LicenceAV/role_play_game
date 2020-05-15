@@ -23,6 +23,7 @@
 """
 
 import sys
+import json
 
 import time
 import numpy as np
@@ -33,6 +34,9 @@ import usual
 # ---------------------------------------- Initialisation ---------------------------------------- #
 
 writer = usual.Writer()
+
+with open('elyscaper_data.json') as json_file: # all long sentences are written here
+    data = json.load(json_file)
 
 # ------------------------------------------------------------------------------------------------ #
 #                                               Class                                              #
@@ -53,7 +57,7 @@ class Display_intro:
         """Create a matrix to simulate a loading
         """
         i=0
-        while i<1500000:
+        while i<1000000:
             print(rd.randint(0,9),end=space)
             i+=1
                         
@@ -76,16 +80,14 @@ class Display_intro:
         writer.jump()
         writer.text("- Si vous souhaitez regarder le fonctionnement du jeu, cliquez sur (F)")
         writer.jump()        
-        writer.text("- Si vous souhaitez changer de nom, cliquez sur (N)")
-        writer.jump()           
-        writer.text("- Si vous souhaitez quitter le jeu, cliquez sur (Q)")        
+        writer.text("- Si vous souhaitez changer de nom, cliquez sur (N)")      
         writer.end()
 
         self.r = input("")
         
         if self.r == "F":
             writer.clear()
-            writer.para_input("Voici pleins de choses") # TODO : complete rules
+            writer.para_input(data["rules"])
             self.menu(hero)
         elif self.r == "P":
             pass
@@ -99,9 +101,6 @@ class Display_intro:
             writer.para_time("Bonjour {}, votre partie est prête.".format(hero.name))
             self.menu(hero)     
 
-        elif self.r == "Q":
-            writer.clear()
-            sys.exit()
         else:
             writer.clear()
             self.menu(hero)
