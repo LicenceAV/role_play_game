@@ -4,7 +4,7 @@
 
 **OS compatibility**
 
-It can only be used on an Unix system, because of the music player. If you take the music player of elscaper.py away, it should work on Windows. You should delete though the lines 52-74, all the occurrences of kill_music() and next_music() inside elyscaper.py and the lines 677-678.
+It can only be used on an Unix system, because of the music player. If you take the music player of elscaper.py away, it should work on Windows. You should delete though the lines 55-77, all the occurrences of kill_music() and next_music() inside elyscaper.py and the line 764.
 
 
 **Musics used**
